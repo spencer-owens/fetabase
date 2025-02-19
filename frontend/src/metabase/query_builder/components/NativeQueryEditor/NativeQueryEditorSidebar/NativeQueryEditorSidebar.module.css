@@ -21,6 +21,6 @@
 }
 
 .TestButton:hover {
-  color: #f00;
-  background-color: rgba(255, 0, 0, 0.1);
+  color: var(--mb-color-brand);
+  background-color: var(--mb-color-brand-light);
 }
