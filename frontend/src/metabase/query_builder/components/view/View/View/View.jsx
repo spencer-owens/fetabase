@@ -18,6 +18,11 @@ import { connect } from "metabase/lib/redux";
 import {
   rememberLastUsedDatabase,
   setArchivedQuestion,
+  submitAiPrompt,
+  toggleAiPrompt,
+  toggleDataReference,
+  toggleSnippetSidebar,
+  toggleTemplateTagsEditor,
 } from "metabase/query_builder/actions";
 import { SIDEBAR_SIZES } from "metabase/query_builder/constants";
 import { MetricEditor } from "metabase/querying/metrics/components/MetricEditor";
@@ -89,6 +94,7 @@ const ViewInner = forwardRef(function _ViewInner(props, ref) {
     isShowingTemplateTagsEditor,
     isShowingDataReference,
     isShowingSnippetSidebar,
+    isShowingAiPrompt,
   } = props;
 
   // if we don't have a question at all or no databases then we are initializing, so keep it simple
@@ -175,7 +181,8 @@ const ViewInner = forwardRef(function _ViewInner(props, ref) {
     (isNative &&
       (isShowingTemplateTagsEditor ||
         isShowingDataReference ||
-        isShowingSnippetSidebar));
+        isShowingSnippetSidebar ||
+        isShowingAiPrompt));
 
   const rightSidebarWidth = match({
     isShowingTimelineSidebar,
@@ -294,6 +301,15 @@ const mapDispatchToProps = dispatch => ({
     const deleteAction = Questions.actions.delete({ id });
     dispatch(deletePermanently(deleteAction));
   },
+  toggleDataReference: (question, field) =>
+    dispatch(toggleDataReference(question, field)),
+  toggleTemplateTagsEditor: (question, field) =>
+    dispatch(toggleTemplateTagsEditor(question, field)),
+  toggleSnippetSidebar: (question, field) =>
+    dispatch(toggleSnippetSidebar(question, field)),
+  toggleAiPrompt: (question, field) =>
+    dispatch(toggleAiPrompt(question, field)),
+  submitAiPrompt: prompt => dispatch(submitAiPrompt(prompt)),
 });
 
 export const View = _.compose(

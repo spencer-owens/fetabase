@@ -28,6 +28,52 @@ import { SET_UI_CONTROLS } from "./ui";
 export const TOGGLE_DATA_REFERENCE = "metabase/qb/TOGGLE_DATA_REFERENCE";
 export const toggleDataReference = createAction(TOGGLE_DATA_REFERENCE);
 
+export const TOGGLE_AI_PROMPT = "metabase/qb/TOGGLE_AI_PROMPT";
+export const toggleAiPrompt = createAction(TOGGLE_AI_PROMPT);
+
+export const SUBMIT_AI_PROMPT = "metabase/qb/SUBMIT_AI_PROMPT";
+export const submitAiPrompt = createThunkAction(
+  SUBMIT_AI_PROMPT,
+  (prompt: string) => async (dispatch: Dispatch, getState: GetState) => {
+    const question = getQuestion(getState());
+    if (!question) {
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/api/nl-to-sql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          question: prompt,
+          database_id: question.databaseId(),
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || "Failed to generate SQL");
+      }
+
+      const { sql_query } = await response.json();
+      const query = question.legacyQuery() as NativeQuery;
+      const cleanedSql = sql_query
+        .replace(/^```sql\n/, "")
+        .replace(/\n```$/, "")
+        .trim();
+      const newQuestion = query.setQueryText(cleanedSql).question();
+      dispatch(updateQuestion(newQuestion));
+      dispatch(toggleAiPrompt());
+    } catch (error) {
+      console.error("Error generating SQL:", error);
+      throw error;
+    }
+  },
+);
+
 export const SET_DATA_REFERENCE_STACK = "metabase/qb/SET_DATA_REFERENCE_STACK";
 export const setDataReferenceStack = createAction(SET_DATA_REFERENCE_STACK);
 

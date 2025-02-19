@@ -1,0 +1,33 @@
+.TextArea {
+  width: 100%;
+  height: 8rem;
+  padding: 0.5rem;
+  border: 1px solid var(--mb-color-border);
+  border-radius: 0.25rem;
+  resize: vertical;
+  font-family: var(--mb-font-family);
+  margin-bottom: 1rem;
+}
+
+.SubmitButton {
+  display: block !important;
+  width: 100% !important;
+  padding: 0.75rem 1rem !important;
+  background-color: var(--mb-color-brand) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.SubmitButton:hover {
+  background-color: var(--mb-color-brand-dark) !important;
+}
+
+.SubmitButton:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  background-color: var(--mb-color-brand) !important;
+}

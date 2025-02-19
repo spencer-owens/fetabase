@@ -1,3 +1,4 @@
+import cx from "classnames";
 import { t } from "ttag";
 
 import Button from "metabase/core/components/Button";
@@ -40,6 +41,7 @@ interface NativeQueryEditorSidebarProps {
   isShowingTemplateTagsEditor: boolean;
   isShowingSnippetSidebar: boolean;
   isPromptInputVisible?: boolean;
+  isShowingAiPrompt: boolean;
   runQuery?: () => void;
   cancelQuery?: () => void;
   onOpenModal: (modalType: QueryModalType) => void;
@@ -47,6 +49,7 @@ interface NativeQueryEditorSidebarProps {
   toggleDataReference: () => void;
   toggleTemplateTagsEditor: () => void;
   toggleSnippetSidebar: () => void;
+  toggleAiPrompt: () => void;
   onFormatQuery: () => void;
   onTestButtonClick?: () => void;
 }
@@ -66,7 +69,8 @@ export const NativeQueryEditorSidebar = (
     snippets,
     features,
     onFormatQuery,
-    onTestButtonClick,
+    isShowingAiPrompt,
+    toggleAiPrompt,
   } = props;
 
   // hide the snippet sidebar if there aren't any visible snippets/collections
@@ -122,11 +126,15 @@ export const NativeQueryEditorSidebar = (
       {PreviewQueryButton.shouldRender({ question }) && (
         <PreviewQueryButton {...props} />
       )}
-      <Tooltip tooltip={t`Test Button`}>
+      <Tooltip tooltip={t`AI Prompt`}>
         <Button
-          className={NativeQueryEditorSidebarS.TestButton}
-          aria-label={t`Test Button`}
-          onClick={onTestButtonClick}
+          className={cx(NativeQueryEditorSidebarS.TestButton, {
+            [NativeQueryEditorSidebarS.isSelected]: isShowingAiPrompt,
+          })}
+          aria-label={t`AI Prompt`}
+          onClick={() => {
+            toggleAiPrompt();
+          }}
           onlyIcon
         >
           <svg

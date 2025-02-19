@@ -1,5 +1,6 @@
 import { match } from "ts-pattern";
 
+import { AiPromptSidebar } from "metabase/query_builder/components/NativeQueryEditor/AiPromptSidebar";
 import DataReference from "metabase/query_builder/components/dataref/DataReference";
 import { SnippetSidebar } from "metabase/query_builder/components/template_tags/SnippetSidebar";
 import { TagEditorSidebar } from "metabase/query_builder/components/template_tags/TagEditorSidebar";
@@ -13,6 +14,8 @@ export const NativeQueryRightSidebar = props => {
     toggleTemplateTagsEditor,
     toggleDataReference,
     toggleSnippetSidebar,
+    toggleAiPrompt,
+    submitAiPrompt,
     showTimelineEvent,
     showTimelineEvents,
     hideTimelineEvents,
@@ -27,6 +30,7 @@ export const NativeQueryRightSidebar = props => {
     isShowingTimelineSidebar,
     isShowingQuestionInfoSidebar,
     isShowingQuestionSettingsSidebar,
+    isShowingAiPrompt,
   } = props;
 
   return match({
@@ -36,6 +40,7 @@ export const NativeQueryRightSidebar = props => {
     isShowingTimelineSidebar,
     isShowingQuestionInfoSidebar,
     isShowingQuestionSettingsSidebar,
+    isShowingAiPrompt,
   })
     .with({ isShowingTemplateTagsEditor: true }, () => (
       <TagEditorSidebar
@@ -70,6 +75,9 @@ export const NativeQueryRightSidebar = props => {
     ))
     .with({ isShowingQuestionSettingsSidebar: true }, () => (
       <QuestionSettingsSidebar question={question} />
+    ))
+    .with({ isShowingAiPrompt: true }, () => (
+      <AiPromptSidebar onClose={toggleAiPrompt} onSubmit={submitAiPrompt} />
     ))
     .otherwise(() => null);
 };

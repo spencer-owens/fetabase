@@ -18,6 +18,7 @@ export const DEFAULT_UI_CONTROLS: QueryBuilderUIControls = {
   isShowingQuestionInfoSidebar: false,
   isShowingTimelineSidebar: false,
   isNativeEditorOpen: false,
+  isShowingAiPrompt: false,
   initialChartSetting: {},
   isShowingRawTable: false, // table/viz toggle
   queryBuilderMode: false, // "view" | "notebook" | "dataset"
@@ -60,4 +61,5 @@ export const CLOSED_NATIVE_EDITOR_SIDEBARS: Partial<QueryBuilderUIControls> = {
   isShowingSnippetSidebar: false,
   isShowingDataReference: false,
   isShowingTimelineSidebar: false,
+  isShowingAiPrompt: false,
 };

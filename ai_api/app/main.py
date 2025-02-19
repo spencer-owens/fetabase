@@ -15,7 +15,7 @@ app = FastAPI(title="Natural Language to SQL API")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with actual origins
+    allow_origins=["http://localhost:3000"],  # Metabase frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

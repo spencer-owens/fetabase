@@ -18,9 +18,14 @@
 
 .TestButton {
   composes: SidebarButton;
+  transition: color 0.3s linear;
 }
 
 .TestButton:hover {
   color: var(--mb-color-brand);
   background-color: var(--mb-color-brand-light);
+}
+
+.isSelected {
+  color: var(--mb-color-brand);
 }

@@ -38,6 +38,7 @@ export interface QueryBuilderUIControls {
   isShowingSnippetSidebar: boolean;
   isShowingTimelineSidebar: boolean;
   isNativeEditorOpen: boolean;
+  isShowingAiPrompt: boolean;
   initialChartSetting: InitialChartSettingState;
   isShowingRawTable: boolean;
   queryBuilderMode: QueryBuilderMode | false;

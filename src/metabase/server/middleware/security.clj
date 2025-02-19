@@ -154,17 +154,16 @@
                   :connect-src  ["'self'"
                                  ;; Google Identity Services
                                  "https://accounts.google.com"
-                                 ;; MailChimp. So people can sign up for the Metabase mailing list in the sign up process
+                                 ;; MailChimp
                                  "metabase.us10.list-manage.com"
-                                 ;; Snowplow analytics
-                                 (when (public-settings/anon-tracking-enabled)
-                                   (setting/get-value-of-type :string :snowplow-url))
                                  ;; Webpack dev server
                                  (when config/is-dev?
                                    "*:8080 ws://*:8080")
                                  ;; CLJS REPL
                                  (when config/is-dev?
-                                   "ws://*:9630")]
+                                   "ws://*:9630")
+                                 ;; AI API
+                                 "http://localhost:8000"]
                   :manifest-src ["'self'"]}]
       (format "%s %s; " (name k) (str/join " " vs))))})
 

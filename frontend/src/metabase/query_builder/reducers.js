@@ -46,6 +46,7 @@ import {
   SET_UI_CONTROLS,
   SHOW_CHART_SETTINGS,
   SHOW_TIMELINE_EVENTS,
+  TOGGLE_AI_PROMPT,
   TOGGLE_DATA_REFERENCE,
   TOGGLE_SNIPPET_SIDEBAR,
   TOGGLE_TEMPLATE_TAGS_EDITOR,
@@ -125,6 +126,15 @@ export const uiControls = handleActions(
         isShowingDataReference: !state.isShowingDataReference,
       }),
     },
+
+    [TOGGLE_AI_PROMPT]: {
+      next: (state, { payload }) => ({
+        ...state,
+        ...CLOSED_NATIVE_EDITOR_SIDEBARS,
+        isShowingAiPrompt: !state.isShowingAiPrompt,
+      }),
+    },
+
     [SET_DATA_REFERENCE_STACK]: {
       next: (state, { payload }) => ({
         ...state,
