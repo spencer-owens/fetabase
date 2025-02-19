@@ -48,6 +48,7 @@ interface NativeQueryEditorSidebarProps {
   toggleTemplateTagsEditor: () => void;
   toggleSnippetSidebar: () => void;
   onFormatQuery: () => void;
+  onTestButtonClick?: () => void;
 }
 
 export const NativeQueryEditorSidebar = (
@@ -65,6 +66,7 @@ export const NativeQueryEditorSidebar = (
     snippets,
     features,
     onFormatQuery,
+    onTestButtonClick,
   } = props;
 
   // hide the snippet sidebar if there aren't any visible snippets/collections
@@ -120,6 +122,16 @@ export const NativeQueryEditorSidebar = (
       {PreviewQueryButton.shouldRender({ question }) && (
         <PreviewQueryButton {...props} />
       )}
+      <Tooltip tooltip={t`Test Button`}>
+        <Button
+          className={NativeQueryEditorSidebarS.SidebarButton}
+          aria-label={t`Test Button`}
+          onClick={onTestButtonClick}
+          icon="star"
+          iconSize={20}
+          onlyIcon
+        />
+      </Tooltip>
       {!!canRunQuery && (
         <RunButtonWithTooltip
           className={NativeQueryEditorSidebarS.RunButtonWithTooltipStyled}
