@@ -124,7 +124,7 @@ export const NativeQueryEditorSidebar = (
       )}
       <Tooltip tooltip={t`Test Button`}>
         <Button
-          className={NativeQueryEditorSidebarS.SidebarButton}
+          className={NativeQueryEditorSidebarS.TestButton}
           aria-label={t`Test Button`}
           onClick={onTestButtonClick}
           icon="star"
