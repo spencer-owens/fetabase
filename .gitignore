@@ -20,12 +20,18 @@
 /*.mv.db
 /*.trace.db
 /.babel_cache
-/.env
+
+# Environment files
+.env
+.env.*
+**/.env
+**/.env.*
 /.envrc
+
 /.lein-env
-/.lein-failures
-/.lein-plugins
-/.lein-repl-history
+.lein-failures
+.lein-plugins
+.lein-repl-history
 /.sqlite.db
 /backend-checksums.txt
 /backend-docs
