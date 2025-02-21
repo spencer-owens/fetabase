@@ -23,6 +23,45 @@ import {
 } from "../selectors";
 
 import { updateQuestion } from "./core";
+import {
+  OPEN_DATA_REFERENCE_AT_QUESTION,
+  POP_DATA_REFERENCE_STACK,
+  PUSH_DATA_REFERENCE_STACK,
+  SET_DATA_REFERENCE_STACK,
+  SET_IS_SHOWING_SNIPPET_SIDEBAR,
+  SET_IS_SHOWING_TEMPLATE_TAGS_EDITOR,
+  SET_MODAL_SNIPPET,
+  SET_NATIVE_EDITOR_SELECTED_RANGE,
+  SET_SNIPPET_COLLECTION_ID,
+  SET_TEMPLATE_TAG,
+  SET_TEMPLATE_TAG_CONFIG,
+  SUBMIT_AI_PROMPT,
+  TOGGLE_AI_PROMPT,
+  TOGGLE_DATA_REFERENCE,
+  TOGGLE_SNIPPET_SIDEBAR,
+  TOGGLE_TEMPLATE_TAGS_EDITOR,
+  closeSnippetModal,
+  insertSnippet,
+  openDataReferenceAtQuestion,
+  openSnippetModalWithSelectedText,
+  popDataReferenceStack,
+  pushDataReferenceStack,
+  rememberLastUsedDatabase,
+  setDataReferenceStack,
+  setIsNativeEditorOpen,
+  setIsShowingSnippetSidebar,
+  setIsShowingTemplateTagsEditor,
+  setModalSnippet,
+  setNativeEditorSelectedRange,
+  setSnippetCollectionId,
+  setTemplateTag,
+  setTemplateTagConfig,
+  submitAiPrompt,
+  toggleAiPrompt,
+  toggleDataReference,
+  toggleSnippetSidebar,
+  toggleTemplateTagsEditor,
+} from "./native";
 import { SET_UI_CONTROLS } from "./ui";
 
 export const TOGGLE_DATA_REFERENCE = "metabase/qb/TOGGLE_DATA_REFERENCE";
@@ -65,8 +104,9 @@ export const submitAiPrompt = createThunkAction(
         .replace(/\n```$/, "")
         .trim();
       const newQuestion = query.setQueryText(cleanedSql).question();
-      dispatch(updateQuestion(newQuestion));
-      dispatch(toggleAiPrompt());
+
+      // Update the question with the new SQL
+      await dispatch(updateQuestion(newQuestion));
     } catch (error) {
       console.error("Error generating SQL:", error);
       throw error;

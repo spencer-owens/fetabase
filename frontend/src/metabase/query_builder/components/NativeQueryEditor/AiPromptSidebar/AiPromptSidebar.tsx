@@ -7,12 +7,14 @@ import AiPromptSidebarS from "./AiPromptSidebar.module.css";
 
 interface AiPromptSidebarProps {
   onClose: () => void;
-  onSubmit: (prompt: string) => void;
+  onSubmit: (prompt: string, runQuery?: () => void) => void;
+  runQuestionQuery?: () => void;
 }
 
 export const AiPromptSidebar = ({
   onClose,
   onSubmit,
+  runQuestionQuery,
 }: AiPromptSidebarProps) => {
   const [prompt, setPrompt] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,7 +27,11 @@ export const AiPromptSidebar = ({
     setIsSubmitting(true);
     try {
       await onSubmit(prompt);
-      setPrompt("");
+
+      // After the SQL has been generated and applied, run the query
+      if (runQuestionQuery) {
+        runQuestionQuery();
+      }
     } finally {
       setIsSubmitting(false);
     }

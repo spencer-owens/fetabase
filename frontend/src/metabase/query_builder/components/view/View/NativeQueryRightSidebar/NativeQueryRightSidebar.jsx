@@ -77,7 +77,11 @@ export const NativeQueryRightSidebar = props => {
       <QuestionSettingsSidebar question={question} />
     ))
     .with({ isShowingAiPrompt: true }, () => (
-      <AiPromptSidebar onClose={toggleAiPrompt} onSubmit={submitAiPrompt} />
+      <AiPromptSidebar
+        onClose={toggleAiPrompt}
+        onSubmit={submitAiPrompt}
+        runQuestionQuery={props.runQuestionQuery}
+      />
     ))
     .otherwise(() => null);
 };
